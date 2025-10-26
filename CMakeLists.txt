@@ -6,7 +6,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 include(FetchContent)
 
-# httplib
+# --- httplib ---
 FetchContent_Declare(
   httplib
   GIT_REPOSITORY https://github.com/yhirose/cpp-httplib.git
@@ -18,7 +18,7 @@ if(NOT httplib_POPULATED)
   add_subdirectory(${httplib_SOURCE_DIR} ${httplib_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
-# nlohmann/json
+# --- nlohmann/json ---
 FetchContent_Declare(
   nlohmann_json
   GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -27,14 +27,15 @@ FetchContent_Declare(
 FetchContent_GetProperties(nlohmann_json)
 if(NOT nlohmann_json_POPULATED)
   FetchContent_Populate(nlohmann_json)
-  add_subdirectory(${nlohmann_json_SOURCE_DIR} ${nlohmann_json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
 add_executable(server main.cpp)
 
+# Inclui manualmente os diretórios de include das dependências
 target_include_directories(server PRIVATE
   ${httplib_SOURCE_DIR}
   ${nlohmann_json_SOURCE_DIR}/include
 )
 
-target_link_libraries(server PRIVATE httplib::httplib nlohmann_json::nlohmann_json)
+# Linka a httplib (a json é header-only, não precisa de link)
+target_link_libraries(server PRIVATE httplib::httplib)
