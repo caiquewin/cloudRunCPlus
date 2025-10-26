@@ -8,9 +8,10 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY . .
 
+# Compila
 RUN cmake -B build -S . && cmake --build build --target server
 
-# Etapa final (imagem leve)
+# Etapa final
 FROM debian:bookworm-slim
 
 WORKDIR /app
