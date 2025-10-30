@@ -7,10 +7,11 @@ using namespace httplib;
 
 int main() {
     Server svr;
-    std::string name;
+
 
     svr.Post("/", [](const Request& req, Response& res) {
         try {
+            std::string name;
             auto body_json = json::parse(req.body);
             name = body_json.value("name", "mundo");
             
