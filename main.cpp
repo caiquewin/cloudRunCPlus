@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "httplib.h"
 #include "nlohmann/json.hpp"
 
@@ -7,12 +8,13 @@ using namespace httplib;
 
 int main() {
     Server svr;
+    string name;
 
     svr.Post("/", [](const Request& req, Response& res) {
         try {
             auto body_json = json::parse(req.body);
-            std::string name = body_json.value("name", "mundo");
-
+            name = body_json.value("name", "mundo");
+            
             json response = {
                 {"message", "Olá, " + name}
             };
