@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "httplib.h"
 #include "nlohmann/json.hpp"
 
@@ -8,7 +7,7 @@ using namespace httplib;
 
 int main() {
     Server svr;
-    string name;
+    std::string name;
 
     svr.Post("/", [](const Request& req, Response& res) {
         try {
