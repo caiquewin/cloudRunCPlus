@@ -12,10 +12,10 @@ int main() {
     svr.Post("/", [](const Request& req, Response& res) {
         try {
             std::string name;
-            std::int idade;
+            int idade;
             auto body_json = json::parse(req.body);
             name = body_json.value("name", "mundo");
-            idade = body_json.value("old", "mundo");
+            idade = int(body_json.value("old", "mundo"));
             
             json response = {
                 {"message", "Olá, " + name}
